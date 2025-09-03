@@ -1,11 +1,11 @@
 package pos.machine;
 
 public class ReceiptItem {
-    private final String name;
+    private  String name;
 
-    private final int quantity;
-    private final int unitPrice;
-    private final int subTotal;
+    private  int quantity;
+    private  int unitPrice;
+    private int subTotal;
 
     public ReceiptItem(String name, int quantity, int unitPrice, int subTotal) {
         this.name = name;
@@ -29,7 +29,7 @@ public class ReceiptItem {
     public int getSubTotal() {
         return subTotal;
     }
-    public int setSubTotal(int subTotal) {
-        return subTotal;
+ public void setSubTotal(int subTotal) {
+        this.subTotal = subTotal;
     }
 }
