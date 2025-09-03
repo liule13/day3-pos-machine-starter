@@ -1,5 +1,6 @@
 package pos.machine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PosMachine {
@@ -10,13 +11,16 @@ public class PosMachine {
     }
     private List<ReceiptItem> decodeToItems(List<String> barcodes) {
         List<Item> items = ItemsLoader.loadAllItems();
-        List<ReceiptItem> receiptItems = null;
 
+        List<ReceiptItem> receiptItems = new ArrayList<>();
 
         for (String barcode : barcodes) {
             for (Item item : items) {
-                if (!item.getBarcode().equals(barcode)) {
-                    System.out.println("Barcode " + barcode + " not found in items.");
+                if (item.getBarcode().equals(barcode)) {
+                    break;
+                }
+                if (item == items.get(items.size() - 1)) {
+                    throw new RuntimeException("Invalid barcode: " + barcode);
                 }
             }
         }
