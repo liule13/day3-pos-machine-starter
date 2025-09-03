@@ -5,6 +5,7 @@ import java.util.List;
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
         List<ReceiptItem> receiptItems = decodeToItems(barcodes);
+        Receipt receipt = calculateCost(receiptItems);
         return null;
     }
     private List<ReceiptItem> decodeToItems(List<String> barcodes) {
@@ -53,5 +54,28 @@ public class PosMachine {
         }
         return null;
     }
+    //    calculateCost
+    private Receipt calculateCost(List<ReceiptItem> receiptItems) {
+        List<ReceiptItem> newReceiptItems = calculateItemsCost(receiptItems);
+        int totalPrice = calculateTotalPrice(newReceiptItems);
+        return new Receipt(newReceiptItems, totalPrice);
+    }
 
+    //calculateItemsCost
+    private List<ReceiptItem> calculateItemsCost(List<ReceiptItem> receiptItems) {
+        for (ReceiptItem receiptItem : receiptItems) {
+            receiptItem.setSubTotal(receiptItem.getQuantity() * receiptItem.getUnitPrice());
+
+        }
+        return receiptItems;
+    }
+
+    //    calculateTotalPrice
+    private int calculateTotalPrice(List<ReceiptItem> receiptItems) {
+        int totalPrice = 0;
+        for (ReceiptItem receiptItem : receiptItems) {
+            totalPrice += receiptItem.getSubTotal();
+        }
+        return totalPrice;
+    }
 }
